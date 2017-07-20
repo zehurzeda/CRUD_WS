@@ -1,4 +1,4 @@
-package br.edu.devmedia.rest;
+package br.com.crudws.rest;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import br.edu.devmedia.dao.NotaDAO;
-import br.edu.devmedia.entidade.Nota;
+import br.com.crudws.dao.NotaDAO;
+import br.com.crudws.entidade.Nota;
 
 @Path("/notas")
 public class NotasService {

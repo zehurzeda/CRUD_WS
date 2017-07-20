@@ -1,4 +1,4 @@
-package br.edu.devmedia.dao;
+package br.com.crudws.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.devmedia.config.BDConfig;
-import br.edu.devmedia.entidade.Nota;
+import br.com.crudws.config.BDConfig;
+import br.com.crudws.entidade.Nota;
 
 public class NotaDAO {
 	

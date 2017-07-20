@@ -1,4 +1,4 @@
-package br.edu.devmedia.config;
+package br.com.crudws.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

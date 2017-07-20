@@ -1,4 +1,4 @@
-package br.edu.devmedia.entidade;
+package br.com.crudws.entidade;
 
 public class Nota {
 
