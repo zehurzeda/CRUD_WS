@@ -29,7 +29,7 @@ public class DaoGenerico<T extends EntidadeBase> {
 	public void remove(Class<T> clazz, T t) {
 		try {
 			manager.getTransaction().begin();
-			manager.remove(t.getId());
+			manager.remove(t);
 			manager.getTransaction().commit();
 		}catch (Exception e) {
 			manager.getTransaction().rollback();

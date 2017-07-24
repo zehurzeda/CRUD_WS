@@ -24,7 +24,7 @@ import br.com.api.orm.DaoGenerico;
 public class LembreteResource {
 
 	private static final String CHARSET_UTF8 = ";charset=utf-8";
-	
+
 	private static DaoGenerico<Lembrete> dao = new DaoGenerico<>();
 
 	@GET
@@ -43,46 +43,45 @@ public class LembreteResource {
 		if (!Pattern.matches("^\\d+", page)) {
 			throw new ApiException(400, "Um valor inválido foi fornecido para um ou mais parâmetros.");
 		}
-		
+
 		return Response.ok(new Pagina(repository.getByRange(Integer.parseInt(page)))).build();
 	}
-	
+
 	@GET
 	@Path("/{id}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	public Response get(@PathParam("id") Long id) throws ApiException {
-	         
-	    if(id == 0){
-	        throw new ApiException(400, "O id deve ser maior ou igual a 1.");
-	    }
-	     
-	    Lembrete lembrete;
-	     
-	    lembrete = dao.findById(Lembrete.class, id);
-	     
-	    if(lembrete == null){
-	        throw new ApiException(204, "O lembrete especificado não existe.");
-	    }
-	 
-	    return Response.ok(lembrete).build();
+
+		if (id == 0) {
+			throw new ApiException(400, "O id deve ser maior ou igual a 1.");
+		}
+
+		Lembrete lembrete;
+
+		lembrete = dao.findById(Lembrete.class, id);
+
+		if (lembrete == null) {
+			throw new ApiException(204, "O lembrete especificado não existe.");
+		}
+
+		return Response.ok(lembrete).build();
 	}
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	public Response post(Lembrete lembrete) throws ApiException {
-	 
-	    if(lembrete.getDescricao().isEmpty() || lembrete.getTitulo().isEmpty()){
-	        throw new ApiException(400, 
-	                "Um ou mais parâmetros obrigatórios não foram informados.");
-	    }
-	     
-	    dao.saveOrUpdate(lembrete);
-	 
-	    return Response.ok(lembrete).build();
+
+		if (lembrete.getDescricao().isEmpty() || lembrete.getTitulo().isEmpty()) {
+			throw new ApiException(400, "Um ou mais parâmetros obrigatórios não foram informados.");
+		}
+
+		dao.saveOrUpdate(lembrete);
+
+		return Response.ok(lembrete).build();
 	}
-	
+
 	@PUT
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
@@ -106,12 +105,19 @@ public class LembreteResource {
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	public Response delete(@PathParam("id") Long id) throws ApiException {
-	     
-	    Lembrete lembrete = new Lembrete();
-	    lembrete = dao.findById(Lembrete.class, id);
-	    dao.remove(Lembrete.class, lembrete);
-	    
-	    return Response.ok(lembrete).build();
+
+		if (id <= 0) {
+			throw new ApiException(400, "O id do lembrete não pode ser menor ou igual a zero.");
+		}
+
+		Lembrete lembrete;
+		lembrete = dao.findById(Lembrete.class, id);
+		if(lembrete == null) {
+			throw new ApiException(204, "O lembrete especificado não existe");
+		}
+		dao.remove(Lembrete.class, lembrete);
+
+		return Response.ok(lembrete).build();
 	}
 
 }
